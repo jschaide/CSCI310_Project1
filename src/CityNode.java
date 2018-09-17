@@ -1,35 +1,50 @@
+import java.util.Vector;
 
 public class CityNode {
 	private String cityName;
 	
-	private CityNode nextCity;
+	private Vector<CityEdge> cityEdges = new Vector<CityEdge>();
 	
-	private int costToTravel;
+	private boolean hasVisited = false;
 	
-	public CityNode(String cn, CityNode nc, int ctt) {
-		this.cityName = cn;
-		this.nextCity = nc;
-		this.costToTravel = ctt;
-	}
+	private boolean destination = false;
 	
 	public CityNode(String cn) {
 		this.cityName = cn;
 	}
 	
-	public CityNode getNextCity() {
-		return this.nextCity;
+	public Vector<CityEdge> getCityEdges() {
+		return this.cityEdges;
 	}
 	
-	public void setNextCity(CityNode nc, int ctt) {
-		this.nextCity = nc;
-		this.costToTravel = ctt;
+	public void addCityEdge(CityEdge ce) {
+		this.cityEdges.add(ce);
 	}
 	
 	public String getCityName() {
 		return this.cityName;
 	}
 	
-	public int getCostToTravel() {
-		return this.costToTravel;
+	public void setAsDestination() {
+		this.destination = true;
+	}
+	
+	public boolean isDestination() {
+		return this.destination;
+	}
+	
+	public void visit() {
+		this.hasVisited = true;
+	}
+	
+	public boolean hasVisited() {
+		return this.hasVisited;
+	}
+	
+	public void printConnections() {
+		for (CityEdge city : cityEdges) {
+			System.out.println("Current City : " + city.getStartCity().getCityName() + " connected to " + city.getEndCity().getCityName());
+			
+		}
 	}
 }
