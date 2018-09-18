@@ -1,3 +1,4 @@
+package Project1;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,13 +7,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class SearchMap {
-	/*
+	/**
 	 * Explores the flight graph and outputs the result paths to an output text file.
-	 * @param {String} cityName
-	 * @param {!FlightMap} flightMap
-	 * @param {!CityPath} cityPath
-	 * @param {String} outputText
-	 * @return {String}
+	 * @param cityName = String
+	 * @param flightMap = FlightMap
+	 * @param cityPath = CityPath
+	 * @param outputText = String
+	 * @return String
 	 */
 	public static String explorePath(String cityName, FlightMap flightMap, CityPath cityPath, String outputText) {
 		CityNode city = flightMap.getCity(cityName);

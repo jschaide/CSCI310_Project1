@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="Project1" default="compile" basedir=".">
+<?xml version="1.0" encoding="UTF-8" ?>
+<project basedir="." default="build" name="CSCI310_Project1">
 	<description>
 		A sample build file for this project
 	</description>
@@ -8,21 +8,35 @@
 	<property name="source.dir" location="src"/>
 	<property name="build.dir" location="bin"/>
 	<property name="doc.dir" location="doc"/>
+	<property name="dist.dir" location="dist"/>
+	<property name="lib.dir" location="lib" />
 	
 	<!-- set up some directories used by this project -->
 	<target name="init" description="setup project directories">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${doc.dir}" />
+		<mkdir dir="${dist.dir}" />
 	</target>
 	
 	<!-- Compile the java code in src dir into build dir -->
 	<target name="compile" depends="init" description="compile java sources">
-		<javac srcdir="${source.dir}" destdir="${build.dir}" />
+		<javac srcdir="${source.dir}/Project1" destdir="${build.dir}" includeantruntime="false">
+			<include name="CityEdge.java" />
+			<include name="CityNode.java" />
+			<include name="CityPath.java" />
+			<include name="FlightMap.java" />
+			<include name="SearchMap.java" />
+			<exclude name="TestCityEdge.java" />
+			<exclude name="TestCityNode.java" />
+			<exclude name="TestCityPath.java" />
+			<exclude name="TestFlightMap.java" />
+			<exclude name="TestSearchMap.java" />
+		</javac>
 	</target>
 	
 	<!-- Generate javadocs for current project into docs dir -->
 	<target name="doc" depends="init" description="generate documentation">
-		<javadoc sourcepath="${source.dir}" destdir="${doc.dir}" />
+		<javadoc sourcepath="${source.dir}" destdir="${doc.dir}"/>
 	</target>
 	
 	<target name="dist" depends="init, compile" description="creates jar file">
@@ -33,8 +47,37 @@
 	<target name="clean" description="tidy up the workspace">
 		<delete dir="${build.dir}" />
 		<delete dir="${doc.dir}" />
+		<delete dir="${dist.dir}" />
 		<delete>
 			<fileset defaultexcludes="no" dir="${source.dir}" includes="**/*~" />
 		</delete>
 	</target>
+
+   <property environment="env"/>
+   <property name="junit.output.dir" value="junit"/>
+   <path id="JUnit 4.libraryclasspath">
+   		<pathelement location="${lib.dir}/junit-4.12.jar"/>
+        <pathelement location="${lib.dir}/hamcrest-all-1.3.jar"/>
+        
+        <pathelement location="${build.dir}" />
+   </path>
+
+   <path id="Project1.classpath">
+   		<pathelement location="bin/Project1"/>
+   		<path refid = "JUnit 4.libraryclasspath"/>
+   </path>
+   <target name="test" depends = "compile">
+        <junit printsummary="on" haltonfailure ="yes" fork="true">
+        	<classpath>
+        		<path refid="Project1.classpath"/>
+        	</classpath>
+        	<formatter type="brief" usefile="false" />
+            <test name="Project1.TestCityNode" />
+            <test name="Project1.TestCityEdge" />
+            <test name="Project1.TestCityPath" />
+            <test name="Project1.TestFlightMap" />
+            <test name="Project1.TestSearchMap" />
+            <classpath refid="Project1.classpath"/>
+        </junit>
+   </target>
 </project>
