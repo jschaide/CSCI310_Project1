@@ -1,3 +1,4 @@
+Destination Flight route from P   Total Cost 
 P           P                     $0
 W           P,W                   $200
 S           P,W,S                 $450

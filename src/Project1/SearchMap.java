@@ -62,8 +62,8 @@ public class SearchMap {
 			}
 			CityPath cityPath = new CityPath();
 			cityPath.addCity(flightMap.getCity(startCity), 0);
-			String output = explorePath(startCity, flightMap, cityPath, "");
-			System.out.println(output);
+			String output = "Destination Flight route from " + startCity + "   Total Cost " + "\n";
+			output += explorePath(startCity, flightMap, cityPath, "");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]));
 			writer.write(output);
 			writer.close();
